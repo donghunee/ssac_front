@@ -30,7 +30,6 @@ function App() {
         client.defaults.headers.common["Authorization"] = `${token}`;
         const response = await client.get("/api/auth/profile");
         setAuthInfo({ isLoggedIn: true, userInfo: response.data.data });
-        console.log(response);
         try {
         } catch (error) {
           console.log("ee");

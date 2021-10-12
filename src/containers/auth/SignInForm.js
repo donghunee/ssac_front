@@ -8,7 +8,7 @@ import client from "../../libs/api/_client";
 function SignInForm() {
   const history = useHistory();
 
-  const { setAuthInfo } = useContext(AuthContext);
+  const { authInfo, setAuthInfo } = useContext(AuthContext);
 
   const [error, setError] = useState("");
   const [form, setForm] = useState({
@@ -18,21 +18,34 @@ function SignInForm() {
     nickName: "",
   });
 
-  const onChagenInput = (e) => {};
+  const onChangeInput = (e) => {
+    const { name, value } = e.target;
+    console.log(value);
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  };
 
   const onClickSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await client.post("/api/auth/signin", {
-        email: form.email,
-        password: form.password,
-      });
-      console.log(response);
+      const response = await client.post(
+        "http://localhost:3000/api/auth/signin",
+        {
+          email: form.email,
+          password: form.password,
+        }
+      );
       if (response.status === 200) {
         const accessToken = response.data.accessToken;
         localStorage.setItem("accessToken", accessToken);
+
+        client.defaults.headers.common["Authorization"] = `${accessToken}`;
+
         const result = await client.get("/api/auth/profile");
-        setAuthInfo({ isLoggedIn: true, authInfo: result.data.data });
+
+        setAuthInfo({ isLoggedIn: true, userInfo: result.data.data });
         history.push("/");
       }
     } catch (error) {
@@ -48,7 +61,7 @@ function SignInForm() {
       type="login"
       onClickSubmit={onClickSubmit}
       form={form}
-      onChagenInput={onChagenInput}
+      onChangeInput={onChangeInput}
       error={error}
     />
   );

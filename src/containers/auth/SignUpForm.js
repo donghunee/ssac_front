@@ -2,8 +2,11 @@ import React from "react";
 import { useState } from "react";
 import AuthForm from "../../components/auth/AuthForm";
 import client from "../../libs/api/_client";
+import { useHistory } from "react-router-dom";
 
 function SignUpForm() {
+  const history = useHistory();
+
   const [error, setError] = useState("");
   const [form, setForm] = useState({
     email: "",
@@ -14,16 +17,46 @@ function SignUpForm() {
 
   const onClickSubmit = async (e) => {
     e.preventDefault();
-    // const response = await client.post("/api/auth/signup", {
-    //   email: "ehdgns17616@naver.com",
-    //   nickName: "동훈",
-    //   password: "ehdgns2797",
-    // });
+    try {
+      const response = await client.post(
+        "http://localhost:3000/api/auth/signin",
+        {
+          email: form.email,
+          password: form.password,
+        }
+      );
+      if (response.status === 200) {
+        alert("회원가입 완료");
+        // setAuthInfo({ isLoggedIn: true, userInfo: result.data.data });
+        history.push("/");
+      }
+    } catch (error) {
+      console.log(error);
+      if (error.response.status === 400) {
+        setError("이메일 / 비밀번호를 확인해 주시기 바랍니다.");
+      }
+    }
+  };
+
+  const onChangeInput = (e) => {
+    const { name, value } = e.target;
+    if (name === "passwordConfirm") {
+      if (value !== form.password) {
+        setError("비밀번호가 일치하지 않습니다.");
+      } else {
+        setError("");
+      }
+    }
+    setForm({
+      ...form,
+      [name]: value,
+    });
   };
 
   return (
     <AuthForm
       onClickSubmit={onClickSubmit}
+      onChangeInput={onChangeInput}
       type="register"
       error={error}
       form={form}
