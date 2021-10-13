@@ -15,6 +15,11 @@ function NavbarContainer() {
     setVisible(!visible);
   };
 
+  const onClickEditProfile = () => {
+    history.push("/edit/profile");
+    setVisible(false);
+  };
+
   const onClickLogout = () => {
     localStorage.removeItem("accessToken");
     client.defaults.headers.common["Authorization"] = ``;
@@ -23,15 +28,15 @@ function NavbarContainer() {
       isLoggedIn: false,
     });
     history.push("/");
+    setVisible(false);
   };
-
-  console.log(authInfo);
   return (
     <NavbarComponent
       onClickProfileImg={onClickProfileImg}
       visible={visible}
       authInfo={authInfo}
       onClickLogout={onClickLogout}
+      onClickEditProfile={onClickEditProfile}
     />
   );
 }
