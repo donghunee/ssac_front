@@ -101,7 +101,12 @@ const ProfileItem = styled.div`
   }
 `;
 
-function NavbarComponent({ authInfo, onClickProfileImg, visible }) {
+function NavbarComponent({
+  authInfo,
+  onClickProfileImg,
+  visible,
+  onClickLogout,
+}) {
   return (
     <>
       <NavbarWrap>
@@ -131,7 +136,7 @@ function NavbarComponent({ authInfo, onClickProfileImg, visible }) {
                 {visible && (
                   <ProfileBoard>
                     <ProfileItem>회원 정보 변경</ProfileItem>
-                    <ProfileItem>로그아웃</ProfileItem>
+                    <ProfileItem onClick={onClickLogout}>로그아웃</ProfileItem>
                   </ProfileBoard>
                 )}
               </ProfileWrap>
