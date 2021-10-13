@@ -3,6 +3,7 @@ import { useState } from "react";
 import AuthForm from "../../components/auth/AuthForm";
 import client from "../../libs/api/_client";
 import { useHistory } from "react-router-dom";
+import { ToastsStore } from "react-toasts";
 
 function SignUpForm() {
   const history = useHistory();
@@ -19,15 +20,16 @@ function SignUpForm() {
     e.preventDefault();
     try {
       const response = await client.post(
-        "http://localhost:3000/api/auth/signin",
+        "http://localhost:3000/api/auth/signup",
         {
           email: form.email,
+          nickName: form.nickName,
           password: form.password,
         }
       );
       if (response.status === 200) {
-        alert("회원가입 완료");
         // setAuthInfo({ isLoggedIn: true, userInfo: result.data.data });
+        ToastsStore.success("회원가입 완료");
         history.push("/");
       }
     } catch (error) {
