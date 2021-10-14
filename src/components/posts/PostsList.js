@@ -5,6 +5,7 @@ import DefaultAvatar from "../../assets/global/profile.png";
 import palette from "../../libs/styles/palette";
 import { BsGenderMale, BsGenderFemale } from "react-icons/bs";
 import { useHistory } from "react-router-dom";
+import Comment from "../common/comment/Comment";
 
 const PostsListBlock = styled(Responsive)`
   margin-top: 3rem;
@@ -21,6 +22,7 @@ const PostItemBlock = styled.div`
   padding: 1rem 1rem;
   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
   cursor: pointer;
+
   max-width: 40rem;
   box-sizing: border-box;
 
