@@ -53,19 +53,19 @@ function EditProfile({
   onChangeCalender,
 }) {
   const genderOptions = [
-    { value: "male", label: "남자", key: "gender" },
-    { value: "female", label: "여자", key: "gender" },
+    { value: "male", label: "남자", key: "gender", className: "gender" },
+    { value: "female", label: "여자", key: "gender", className: "gender" },
   ];
 
   const vachineOptions = [
-    { value: "MD", label: "모더나", key: "vachine" },
-    { value: "AZ", label: "AZ", key: "vachine" },
+    { value: "MD", label: "모더나", key: "vachine", className: "gender" },
+    { value: "AZ", label: "AZ", key: "vachine", className: "gender" },
   ];
 
   const degreeOptions = [
-    { value: 0, label: "접종 안함", key: "degree" },
-    { value: 1, label: "1차", key: "degree" },
-    { value: 2, label: "2차", key: "degree" },
+    { value: 0, label: "접종 안함", key: "degree", className: "gender" },
+    { value: 1, label: "1차", key: "degree", className: "gender" },
+    { value: 2, label: "2차", key: "degree", className: "gender" },
   ];
 
   return (
