@@ -46,14 +46,38 @@ const EditInput = styled.input`
   }
 `;
 
-function EditProfile({ onClickAvatar }) {
+function EditProfile({
+  onClickAvatar,
+  profileImg,
+  onChangeDropDown,
+  onChangeCalender,
+}) {
+  const genderOptions = [
+    { value: "male", label: "남자", key: "gender" },
+    { value: "female", label: "여자", key: "gender" },
+  ];
+
+  const vachineOptions = [
+    { value: "MD", label: "모더나", key: "vachine" },
+    { value: "AZ", label: "AZ", key: "vachine" },
+  ];
+
+  const degreeOptions = [
+    { value: 0, label: "접종 안함", key: "degree" },
+    { value: 1, label: "1차", key: "degree" },
+    { value: 2, label: "2차", key: "degree" },
+  ];
+
   return (
     <EditProfileWrap>
       <EditItemBlock>
         <EditLabelWrap>
           <BoldLabel>프로필 이미지 선택</BoldLabel>
         </EditLabelWrap>
-        <EditAvatar onClickAvatar={onClickAvatar} />
+        <EditAvatar
+          imgURL={profileImg.imgBase64}
+          onClickAvatar={onClickAvatar}
+        />
       </EditItemBlock>
       <EditItemBlock>
         <EditLabelWrap>
@@ -65,25 +89,37 @@ function EditProfile({ onClickAvatar }) {
         <EditLabelWrap>
           <BoldLabel>성별 선택</BoldLabel>
         </EditLabelWrap>
-        <StyledDropDown myPlaceholder={"성별을 선택 해주세요."} />
+        <StyledDropDown
+          onChangeDropDown={onChangeDropDown}
+          options={genderOptions}
+          myPlaceholder={"성별을 선택 해주세요."}
+        />
       </EditItemBlock>
       <EditItemBlock>
         <EditLabelWrap>
           <BoldLabel>백신 선택</BoldLabel>
         </EditLabelWrap>
-        <StyledDropDown myPlaceholder={"백신을 선택 해주세요."} />
+        <StyledDropDown
+          options={vachineOptions}
+          onChangeDropDown={onChangeDropDown}
+          myPlaceholder={"백신을 선택 해주세요."}
+        />
       </EditItemBlock>
       <EditItemBlock>
         <EditLabelWrap>
           <BoldLabel>차수 선택</BoldLabel>
         </EditLabelWrap>
-        <StyledDropDown myPlaceholder={"차수를 선택 해주세요."} />
+        <StyledDropDown
+          options={degreeOptions}
+          onChangeDropDown={onChangeDropDown}
+          myPlaceholder={"차수를 선택 해주세요."}
+        />
       </EditItemBlock>
       <EditItemBlock>
         <EditLabelWrap>
           <BoldLabel>백신 접종 날짜 선택</BoldLabel>
         </EditLabelWrap>
-        <Calendar onChange={null} value={new Date()} />
+        <Calendar onChange={onChangeCalender} value={new Date()} />
       </EditItemBlock>
     </EditProfileWrap>
   );
