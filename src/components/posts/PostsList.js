@@ -4,6 +4,7 @@ import Responsive from "../common/Responsive";
 import DefaultAvatar from "../../assets/global/profile.png";
 import palette from "../../libs/styles/palette";
 import { BsGenderMale, BsGenderFemale } from "react-icons/bs";
+import { useHistory } from "react-router-dom";
 
 const PostsListBlock = styled(Responsive)`
   margin-top: 3rem;
@@ -20,6 +21,13 @@ const PostItemBlock = styled.div`
   padding: 1rem 1rem;
   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
   cursor: pointer;
+  max-width: 40rem;
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+
   & + & {
     margin-top: 2rem;
   }
@@ -125,9 +133,9 @@ const PostTagsItem = styled.div`
   }
 `;
 
-function PostItem({ post, gender }) {
+function PostItem({ post, gender, onClickPost }) {
   return (
-    <PostItemBlock>
+    <PostItemBlock onClick={onClickPost}>
       <ProfileWrap>
         <ProfileImageWrap>
           <ProfileImage src={DefaultAvatar} />
@@ -167,12 +175,20 @@ function PostItem({ post, gender }) {
 }
 
 function PostsList({ posts }) {
+  const history = useHistory();
+
   return (
     <PostsListBlock>
       <PostsListContainer>
         {posts &&
           posts.map((post, index) => {
-            return <PostItem post={post} />;
+            return (
+              <PostItem
+                key={index}
+                onClickPost={() => history.push(`/post/${post._id}`)}
+                post={post}
+              />
+            );
           })}
       </PostsListContainer>
     </PostsListBlock>
